@@ -18,6 +18,11 @@
   },
   "homepage": "https://github.com/mainheartng/backend-api#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "pg": "^8.8.0",
+    "postgres": "^3.3.3",
+    "redis": "^4.5.1",
+    "sequelize": "^6.28.0",
+    "sqlite3": "^5.1.4"
   }
 }
