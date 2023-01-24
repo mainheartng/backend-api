@@ -1,1 +1,2 @@
-# backend-api
+# MainHeart API application
+This is the backend of the application the team is working on if you want to know tools and resources used in building the API, including decision made as we move. Please check the repo [mainheartng/organization/tools](https://github.com/mainheartng/organization/blob/main/Tools%20and%20Resources%20for%20the%20project.md#description)
