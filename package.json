@@ -18,7 +18,11 @@
   },
   "homepage": "https://github.com/mainheartng/backend-api#readme",
   "dependencies": {
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
+    "helmet": "^6.0.1",
+    "morgan": "^1.10.0",
     "pg": "^8.8.0",
     "postgres": "^3.3.3",
     "redis": "^4.5.1",
