@@ -7,7 +7,10 @@ const port = 3000
 const app = express()
 
 app.get("/", function(req, res){
-console.log("Running")
+res.json({
+    status:200,
+    message:"Welcome to Main Heart Api"
+})
 })
 
 app.listen(port, function(){
