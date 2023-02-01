@@ -10,5 +10,6 @@ app.get("/", function(req, res){
 console.log("Running")
 })
 
-app.listen(port, function(){return
-console.log("Running on 3000")})
+app.listen(port, function(){
+    return console.log("Running on 3000")
+})
