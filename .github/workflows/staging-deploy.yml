@@ -1,8 +1,12 @@
 name: deploy
 on:
-  push:
+  pull_request:
+    types: 
+      - opened
+      - reopen
     branches:
       - dev
+      
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
