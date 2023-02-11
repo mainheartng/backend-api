@@ -1,0 +1,63 @@
+name: CodeCheck
+run-name: GitHub is checking ${{ github.actor  }} code
+
+on:
+  pull_request:
+    types: 
+      - opened
+      - reopened
+      - edited
+    branches:
+      - dev
+
+jobs:
+  lint-pr:
+    name: Lint pull request title
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lint pull request title
+        uses: jef/conventional-commits-pr-action@v1
+        with:
+          token: ${{ secrets.CO_ACCESS }}
+
+  project-prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: lint-code
+        uses: actions/setup-node@v3.6.0
+      - run: npm install
+      - run: npm run lint
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+
+      - run: npm install
+
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SERVER_SSH }}
+          known_hosts: unnecessary
+
+      - name: Adding Known Hosts
+        run: ssh-keyscan -p ${{ secrets.SSH_PORT}} -H ${{ secrets.SERVER_IP }}  >> ~/.ssh/known_hosts
+
+      - name: Deploy with rsync
+        run: rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" ./dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/var/www/backendapi/
+
+      - name: Restart Node Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd /var/www/zellwk.com
+            git fetch origin master
+            git reset --hard FETCH_HEAD
+            git clean -d -f --exclude secrets
+            npm install --production
+            chown $(whoami) . # PM2 doesn't recognize root user from Github Actions
+            npm run restart
