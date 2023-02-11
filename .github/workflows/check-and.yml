@@ -13,7 +13,6 @@ on:
 
 jobs:
   lint-pr:
-    environment: staging
     name: Lint pull request title
     runs-on: ubuntu-latest
     steps:
