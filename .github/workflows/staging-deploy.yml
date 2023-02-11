@@ -27,7 +27,7 @@ jobs:
         run: ssh-keyscan -p ${{ secrets.SSH_PORT}} -H ${{ secrets.SERVER_IP }}  >> ~/.ssh/known_hosts
 
       - name: Deploy with rsync
-        run: rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" ./dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/var/www/backendapi/
+        run: rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" . ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/var/www/backendapi/
 
       - name: Restart Node Server
         uses: appleboy/ssh-action@master
@@ -43,4 +43,4 @@ jobs:
             git clean -d -f --exclude secrets
             npm install --production
             chown $(whoami) . # PM2 doesn't recognize root user from Github Actions
-            npm run restart
+            npm start
