@@ -39,6 +39,7 @@ jobs:
         with:
           key: ${{ secrets.SERVER_SSH }}
           known_hosts: unnecessary
+          if_key_exists: ignore
 
       - name: Adding Known Hosts
         run: ssh-keyscan -p ${{ secrets.SSH_PORT}} -H ${{ secrets.SERVER_IP }}  >> ~/.ssh/known_hosts
