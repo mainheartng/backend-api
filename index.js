@@ -1,18 +1,19 @@
 import express from "express";
-import bodyParser from 'body-parser';
-import cors from "cors";
+// import bodyParser from "body-parser";
+// import cors from "cors";
+import "./src/models/index.js";
 
-const port = 3000
+const port = 3000;
 
-const app = express()
+const app = express();
 
-app.get("/", function(req, res){
-res.json({
-    status:200,
-    message:"Welcome to Main Heart Api"
-})
-})
+app.get("/", function (req, res) {
+  res.json({
+    status: 200,
+    message: "Welcome to Main Heart Api",
+  });
+});
 
-app.listen(port, function(){
-    return console.log("Running on 3000")
-})
+app.listen(port, function () {
+  return console.log("Running on 3000");
+});
