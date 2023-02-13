@@ -11,7 +11,6 @@ const basename = path.basename(filename);
 import config from "../config/config.js";
 
 const db = {};
-
 let sequelize;
 
 if (config.use_env_variable) {
