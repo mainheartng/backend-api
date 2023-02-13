@@ -1,6 +1,6 @@
 import express from "express";
-import bodyParser from "body-parser";
-import cors from "cors";
+// import bodyParser from "body-parser";
+// import cors from "cors";
 import "./src/models/index.js";
 
 const port = 3000;
