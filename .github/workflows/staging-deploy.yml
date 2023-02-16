@@ -11,7 +11,19 @@ jobs:
     name: Deploy staging code
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Notify slack success
+        if: success()
+        id: slack # IMPORTANT: reference this step ID value in future Slack steps
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        uses: voxmedia/github-action-slack-notify-build@v1
+        with:
+          channel: build-notify
+          status: STARTING
+          color: warning
+
+      - name: Installing Start
+        uses: actions/checkout@v2
       - uses: actions/setup-node@v1
 
       - run: npm install
@@ -44,3 +56,25 @@ jobs:
             npm install --production
             chown $(whoami) . # PM2 doesn't recognize root user from Github Actions
             npm start
+
+      - name: Notify slack success
+        if: success()
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        uses: voxmedia/github-action-slack-notify-build@v1
+        with:
+          # Updates existing message from the first step
+          message_id: ${{ steps.slack.outputs.message_id }}
+          channel: build-notify
+          status: SUCCESS
+          color: good
+
+      - name: Notify slack fail
+        if: failure()
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        uses: voxmedia/github-action-slack-notify-build@v1
+        with:
+          channel: build-notify
+          status: FAILED
+          color: danger
