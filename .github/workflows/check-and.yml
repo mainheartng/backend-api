@@ -1,0 +1,32 @@
+name: CodeCheck
+run-name: GitHub is checking ${{ github.actor  }} code
+
+on:
+  pull_request:
+    types: 
+      - opened
+      - reopened
+      - edited
+      - synchronize
+    branches:
+      - dev
+
+jobs:
+  lint-pr:
+    name: Lint pull request title
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lint pull request title
+        uses: jef/conventional-commits-pr-action@v1
+        with:
+          token: ${{ secrets.CO_ACCESS }}
+
+  project-prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: lint-code
+        uses: actions/setup-node@v3.6.0
+      - run: npm install
+      # - run: npm run lint
