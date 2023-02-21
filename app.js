@@ -3,6 +3,7 @@ import cors from "cors";
 // import "./src/models/index.js";
 import logger from "morgan";
 import helmet from "helmet";
+import authMiddleware from "./src/middlewares/authMiddleware";
 
 const port = 3000;
 
@@ -33,7 +34,7 @@ app.use(express.urlencoded())
 app.use(helmet())
 
 
-app.get("/", function (req, res) {
+app.get("/", authMiddleware, function (req, res) {
   res.json({
     status: 200,
     message: "Welcome to Main Heart Api",
