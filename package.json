@@ -19,10 +19,13 @@
   },
   "homepage": "https://github.com/mainheartng/backend-api#readme",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "helmet": "^6.0.1",
+    "jsonwebtoken": "^9.0.0",
     "morgan": "^1.10.0",
     "pg": "^8.9.0",
     "pg-hstore": "^2.3.4",
@@ -36,6 +39,7 @@
     "@commitlint/format": "^17.4.0",
     "eslint": "^8.33.0",
     "husky": "^8.0.0",
+    "jest": "^29.4.3",
     "nodemon": "^2.0.20",
     "sequelize-cli": "^6.6.0"
   }
