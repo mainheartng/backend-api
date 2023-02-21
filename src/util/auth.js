@@ -33,9 +33,3 @@ export const verifyToken = (token) => {
     }
   })
 }
-
-function AuthModule() {
-  return true
-}
-
-export default AuthModule
