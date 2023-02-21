@@ -1,4 +1,4 @@
-import myModule, {verifyToken, createToken} from "../util/auth"; 
+import {verifyToken} from "../util/auth"; 
 
 async function authMiddleware(req, res, next) {
   try {
